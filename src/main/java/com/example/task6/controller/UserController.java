@@ -4,11 +4,9 @@ import com.example.task6.dto.User;
 import com.example.task6.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,17 @@ public class UserController {
     @GetMapping("/{name}")
     public ResponseEntity<List<User>> findByName(@PathVariable String name){
         return ResponseEntity.ok(userService.findByName(name));
+    }
+
+//    @PostMapping("/addMoney")
+//    public ResponseEntity<String> addMoney() {
+//        userService.addMoney();
+//        return ResponseEntity.status(HttpStatus.OK).body("Successfully added 100 to user's money.");
+//    }
+
+    @PostMapping("/addMoney/{id}")
+    public ResponseEntity<String> addMoneyById(@PathVariable long id) {
+        userService.addMoney(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Successfully added 100 to user's money.");
     }
 }
